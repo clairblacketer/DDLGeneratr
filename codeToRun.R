@@ -4,16 +4,16 @@
 # Step 1: Update the file inst/sql/sql_server/OMOP CDM ddl.sql with the changes for the new version and set the below variables
 
   # Step 1.1: The version of the CDM you are writing. This will be used for the name of the pdf so, for example, write v5.3 as v5_3
-  cdmVersion <- "v5_3"
+  cdmVersion <- "v5_3_1"
 
   # Step 1.2: The location of the wiki markdown files. The default is "../../Documentation/CommonDataModel_Wiki_Files"
   mdFilesLocation <- "S:/Git/GitHub/CommonDataModel/Documentation/CommonDataModel_Wiki_Files"
 
 # Step 2: Run the following code to create the DDLs for each dialect:
 
-writeDDL("bigquery")
-writeDDL("impala")
-writeDDL("netezza")
+# writeDDL("bigquery")
+# writeDDL("impala")
+# writeDDL("netezza")
 writeDDL("oracle")
 writeDDL("pdw")
 writeDDL("postgresql")
@@ -38,9 +38,12 @@ writeConstraints("postgresql")
 writeConstraints("pdw")
 writeConstraints("sql server")
 
-# step 6: Run the following code to create the pdf documentation. It will be written to the reports folder.
+# step 6: Run the following code to create the pdf and csv documentation. They will be written to the reports folder.
 
 rmarkdown::render("reports/OMOP_CDM_PDF.Rmd",
                   output_format = "pdf_document",
                   output_file = paste0("OMOP_CDM_",cdmVersion,".pdf"),
                   params = list(mdFilesLocation = mdFilesLocation))
+
+cdmCsv <- parseWiki(mdFilesLocation)
+write.csv(cdmCsv, paste0("reports/OMOP_CDM_",cdmVersion,".csv"))

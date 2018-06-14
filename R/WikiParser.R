@@ -28,7 +28,7 @@
 #'
 #' @export
 parseWiki <- function(mdFilesLocation) {
-  # mdFilesLocation <- "../../CommonDataModel.wiki"
+  # mdFilesLocation <- "../CommonDataModel.wiki"
   files <- list.files(mdFilesLocation, pattern = ".*\\.md", recursive = TRUE, full.names = TRUE)
   file <- files[10]
   parseTableRow <- function(row) {
@@ -58,6 +58,10 @@ parseWiki <- function(mdFilesLocation) {
       tableDefinition <- lapply(lines[tableStart:tableEnd], parseTableRow)
       tableDefinition <- do.call(rbind, tableDefinition)
       tableDefinition$table <- tableName
+
+      tableDefinition$schema <- "cdm"
+      tableDefinition$schema[tableDefinition$table %in% c("cohort","cohort_attribute")] <- "results"
+
       return(tableDefinition)
     } else {
       return(NULL)
