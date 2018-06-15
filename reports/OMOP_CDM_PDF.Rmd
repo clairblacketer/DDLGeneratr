@@ -123,6 +123,10 @@ mdFilesLocation <- params$mdFilesLocation
 ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/VISIT_OCCURRENCE.md')}
 ```
 
+## VISIT_DETAIL
+```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/VISIT_DETAIL.md')}
+```
+
 ## PROCEDURE_OCCURRENCE
 ```{r child = paste0(mdFilesLocation,'/StandardizedclinicalDataTables/PROCEDURE_OCCURRENCE.md')}
 ```
